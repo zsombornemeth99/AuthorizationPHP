@@ -82,27 +82,44 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="text"><strong>'A' válasz:</strong></label>
-                                    <input type="text" class="form-control" id="text" placeholder="Írja be az 'A' választ" name="input_a">
+                                    <input id="input1" type="text" class="form-control" id="text" placeholder="Írja be az 'A' választ" oninput="addToSelectOption()" name="input_a">
                                 </div>
                                 <div class="form-group">
                                     <label for="text"><strong>'B' válasz:</strong></label>
-                                    <input type="text" class="form-control" id="text" placeholder="Írja be az 'B' választ" name="input_b">
+                                    <input id="input2" type="text" class="form-control" id="text" placeholder="Írja be az 'B' választ" oninput="addToSelectOption()" name="input_b">
                                 </div>
                                 <div class="form-group">
                                     <label for="text"><strong>'C' válasz:</strong></label>
-                                    <input type="text" class="form-control" id="text" placeholder="Írja be az 'C' választ" name="input_c">
+                                    <input id="input3" type="text" class="form-control" id="text" placeholder="Írja be az 'C' választ" oninput="addToSelectOption()" name="input_c">
                                 </div>
                                 <div class="form-group">
                                     <label for="text"><strong>'D' válasz:</strong></label>
-                                    <input type="text" class="form-control" id="text" placeholder="Írja be az 'D' választ" name="input_d">
+                                    <input id="input4" type="text" class="form-control" id="text" placeholder="Írja be az 'D' választ" oninput="addToSelectOption()" name="input_d">
                                 </div>       
                                 <div class="form-group">
                                     <label for="text"><strong>Helyes válasz:</strong></label>
-                                    <input type="text" class="form-control" id="text" placeholder="Írja be a helyes választ" name="input_helyes">
+                                    <select id="select" style="width:100%;" class="form-control" name="input_helyes">
+                                        <option disabled selected>Válassza ki a helyes választ!</option> 
+                                    </select>
                                 </div>   
                                 <input type="hidden" name="action" value="cmd_insert">
                                 <button type="submit" class="btn btn-primary p-4">Felvétel</button><br/><br/>
                             </form>
+                            <script>
+                                function addToSelectOption() {
+                                    document.getElementById("select").innerHTML = "";
+                                    x = "<option disabled selected>Válassza ki a helyes választ!</option>";
+                                    if (document.getElementById("input1").value != null)
+                                        x += `<option value="${document.getElementById("input1").value}">${document.getElementById("input1").value}</option>`;
+                                    if (document.getElementById("input2").value != null)
+                                        x += `<option value="${document.getElementById("input2").value}">${document.getElementById("input2").value}</option>`;
+                                    if (document.getElementById("input3").value != null)
+                                        x += `<option value="${document.getElementById("input3").value}">${document.getElementById("input3").value}</option>`;
+                                    if (document.getElementById("input4").value != null)
+                                        x += `<option value="${document.getElementById("input2").value}">${document.getElementById("input4").value}</option>`;
+                                    document.getElementById("select").innerHTML = x;
+                                }
+                            </script>
                             <?php
                             $conn = mysqli_connect("localhost", "root", "", "quiz");
                             if (!$conn) {
