@@ -63,6 +63,15 @@ if ($_SESSION["login_state"] == "not_signed_in") {
             </div>
         </nav>
     </header>
+    <?php if(isset($_POST["action"]) && $_POST["action"] == "logout"){
+			$_SESSION["login_state"] = "not_signed_in";
+			header("location: https://localhost/otthon/index.php");
+	} 
+	$conn = mysqli_connect("localhost","root","","quiz");
+	if (!$conn){
+		die ("Kapcsolódási hiba: ".mysqli_connect_error());
+	}
+    mysqli_query($conn, "SET CHARACTER SET 'utf8'"); ?>
 <body>
     <div class="container-fluid">
         <div class="row p-2">
