@@ -43,6 +43,9 @@ if ($_SESSION["login_state"] == "not_signed_in"){
                         <li class="nav-item active">
                             <a class="nav-link text-dark" href="https://localhost/otthon/test.php">Kérdések</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="https://localhost/otthon/users.php">Userek</a>
                         </li>

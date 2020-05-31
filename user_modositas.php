@@ -4,6 +4,10 @@ if ($_SESSION["login_state"] == "not_signed_in"){
     header("location: index.php");
     die();
 } 
+if ($_SESSION["login_user_permission"]!="admin" && $_SESSION["login_user_permission"]!="moderator"){ 
+    header("location: access_denied.php");
+    die();   
+    }
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -42,6 +46,9 @@ if ($_SESSION["login_state"] == "not_signed_in"){
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item active">
                             <a class="nav-link text-dark" href="https://localhost/otthon/test.php">Kérdések</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="https://localhost/otthon/users.php">Userek</a>

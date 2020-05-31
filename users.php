@@ -45,6 +45,9 @@
                         <li class="nav-item active">
                             <a class="nav-link text-dark" href="test.php">Kérdések</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="users.php">Userek</a>
                         </li>
