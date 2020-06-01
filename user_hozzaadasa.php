@@ -110,7 +110,7 @@ if ($_SESSION["login_user_permission"]!="admin" && $_SESSION["login_user_permiss
         if(mysqli_num_rows($result) > 0){           
                 ?>
                 <div class="border container bg-dark" style="padding:30px;">
-                <h2 class="text-info ">User Módosítása</h2>
+                <h2 class="text-info ">User Hozzáadása</h2>
                 <br />
                 <form method="post">
                     <input type="hidden" name="input_id" value="<?php echo $row["id"]; ?>">

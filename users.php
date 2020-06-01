@@ -69,14 +69,14 @@
 		die ("Kapcsolódási hiba: ".mysqli_connect_error());
 	}
     mysqli_query($conn, "SET CHARACTER SET 'utf8'"); 
-    //törlés(inactiválás)
+    //inactiválás
     if (isset($_SESSION["login_user_permission"])){
-        if ($_SESSION["login_user_permission"]=="admin"){
-            if(isset($_POST["action"]) && $_POST["action"]=="cmd_delete"){
+        if ($_SESSION["login_user_permission"]=="admin"|| $_SESSION["login_user_permission"]=="moderator"){
+            if(isset($_POST["action"]) && $_POST["action"]=="cmd_inactive"){
                 $sql = "UPDATE user SET 
                     activity = 'nem active'
                     WHERE id = ".$_POST['input_id'];
-                    //echo $sql;
+                    echo $sql;
                     if(mysqli_query($conn,$sql)){ ?>
                         <br><div class='mt-4 alert alert-success alert-dismissible fade show'>
                             <b>Sikeres inaktiválás<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -85,6 +85,53 @@
                     else{?>
                         <br><divt' class='mt-4 alert alert-danger alert-dismissible fade show'>
                             <b>Sikertelen inaktiválás<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span></button></div> <?php  
+                    }
+           }
+        }
+        elseif(isset($_POST["action"]) && $_POST["action"]=="cmd_inactive"){
+            header("location: access_denied.php");
+            die();  
+        }
+    }
+    if (isset($_SESSION["login_user_permission"])){
+        if ($_SESSION["login_user_permission"]=="admin"|| $_SESSION["login_user_permission"]=="moderator"){
+            if(isset($_POST["action"]) && $_POST["action"]=="cmd_active"){
+                $sql = "UPDATE user SET 
+                    activity = 'active'
+                    WHERE id = ".$_POST['input_id'];
+                    echo $sql;
+                    if(mysqli_query($conn,$sql)){ ?>
+                        <br><div class='mt-4 alert alert-success alert-dismissible fade show'>
+                            <b>Sikeres aktiválás<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span></button></div> <?php          
+                    }
+                    else{?>
+                        <br><divt' class='mt-4 alert alert-danger alert-dismissible fade show'>
+                            <b>Sikertelen aktiválás<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span></button></div> <?php  
+                    }
+           }
+        }
+        elseif(isset($_POST["action"]) && $_POST["action"]=="cmd_active"){
+            header("location: access_denied.php");
+            die();  
+        }
+    }
+    if (isset($_SESSION["login_user_permission"])){
+        if ($_SESSION["login_user_permission"]=="admin"){
+            if(isset($_POST["action"]) && $_POST["action"]=="cmd_delete"){
+                $sql = "DELETE FROM user 
+                    WHERE id = ".$_POST['input_id'];
+                    echo $sql;
+                    if(mysqli_query($conn,$sql)){ ?>
+                        <br><div class='mt-4 alert alert-success alert-dismissible fade show'>
+                            <b>Sikeres törlés<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span></button></div> <?php          
+                    }
+                    else{?>
+                        <br><divt' class='mt-4 alert alert-danger alert-dismissible fade show'>
+                            <b>Sikertelen törlés<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                             <span aria-hidden='true'>&times;</span></button></div> <?php  
                     }
            }
@@ -122,8 +169,26 @@
                                     <form method="POST">
                                       <input type="hidden" name="input_id" value="<?php echo $row['id']; ?>">
                                       <input type="hidden" name="action" value="cmd_delete">
-                                      <button type="submit" onclick="return confirm('Biztos inactivalni szeretné ezt a usert?')" class="btn btn-danger btn-block p-0">Törlés</button>&nbsp;
-                                    </form> 
+                                      <button type="submit" onclick="return confirm('Biztos törölni szeretné ezt a usert?')" class="btn btn-danger btn-block p-0">Törlés</button>&nbsp;                                      
+                                    </form> <?php                                   
+                                    if($row['activity'] == "active"){
+                                        ?>
+                                        <form method="POST">
+                                        <input type="hidden" name="input_id" value="<?php echo $row['id']; ?>">
+                                        <input type="hidden" name="action" value="cmd_inactive">
+                                        <button type="submit" onclick="return confirm('Biztos inactiválni szeretné ezt a usert?')" class="btn btn-warning btn-block p-0">Inactivál</button>
+                                        &nbsp;                                      
+                                      </form> <?php                                   
+                                    }
+                                    else{?>
+                                        <form method="POST">
+                                        <input type="hidden" name="input_id" value="<?php echo $row['id']; ?>">
+                                        <input type="hidden" name="action" value="cmd_active">
+                                        <button type="submit" onclick="return confirm('Biztos activálni szeretné ezt a usert?')" class="btn btn-warning btn-block p-0">Activál</button>
+                                        &nbsp;                                      
+                                      </form> <?php                             
+                                    }       
+                                    ?>
                                     <a href="user_modositas.php/?id=<?php echo $row['id'];?>" class="btn btn-success text-white btn-block p-0">Módosít</a>
                                     </td> <?php
                                     echo "</tr>";
