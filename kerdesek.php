@@ -90,7 +90,7 @@ if ($_SESSION["login_state"] == "not_signed_in") {
                         }
                     }
                 }
-    //Törlés vége
+                //Törlés vége
                 // Mintaadat
                 if (isset($_SESSION["login_user_permission"])) {
                     if ($_SESSION["login_user_permission"] == "admin" || $_SESSION["login_user_permission"] == "moderator") {
@@ -173,7 +173,7 @@ if ($_SESSION["login_state"] == "not_signed_in") {
                             <form method="POST">
                                 <input type="hidden" name="input_id" value="<?php echo $row['kerdes_id']; ?>">
                                 <input type="hidden" name="action" value="cmd_delete">
-                                <button type="submit" class="btn btn-danger p-0 btn-block my-1">Törlés</button>
+                                <button type="submit" onclick="return confirm('Biztos törölni szeretné ezt a kérdést?')" class="btn btn-danger p-0 btn-block my-1">Törlés</button>
                             </form>
                             <a href="kerdes_modositas.php/?kerdes_id=<?php echo $row['kerdes_id']; ?>" class="btn btn-success text-white btn-block p-0">Módosít</a>
                             </td> <?php

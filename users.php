@@ -122,7 +122,7 @@
                                     <form method="POST">
                                       <input type="hidden" name="input_id" value="<?php echo $row['id']; ?>">
                                       <input type="hidden" name="action" value="cmd_delete">
-                                      <button type="submit" class="btn btn-danger btn-block p-0">Törlés</button>&nbsp;
+                                      <button type="submit" onclick="return confirm('Biztos inactivalni szeretné ezt a usert?')" class="btn btn-danger btn-block p-0">Törlés</button>&nbsp;
                                     </form> 
                                     <a href="user_modositas.php/?id=<?php echo $row['id'];?>" class="btn btn-success text-white btn-block p-0">Módosít</a>
                                     </td> <?php
