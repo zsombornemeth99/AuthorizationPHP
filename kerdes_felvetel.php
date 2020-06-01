@@ -70,7 +70,7 @@ $conn = mysqli_connect("localhost", "root", "", "quiz");
 if (!$conn) {
     die("Kapcsolódási hiba: " . mysqli_connect_error());
 }
-mysqli_query($conn, "SET CHARACTER SET 'utf8'"); ?>
+mysqli_query($conn, "SET CHARACTER SET 'utf8'");?>
 
 <body>
     <div class="container-fluid">
@@ -156,63 +156,62 @@ mysqli_query($conn, "SET CHARACTER SET 'utf8'"); ?>
 
                         /* FELVÉTEL  KEZDETE */
                         if (isset($_SESSION["login_user_permission"])) {
-                            if ($_SESSION["login_user_permission"] == "admin" || $_SESSION["login_user_permission"] == "moderator") {
-                                if (isset($_POST["action"]) && $_POST["action"] == "cmd_insert") {
-                                    if (
-                                        !empty($_POST["input_kerdes"]) &&
-                                        !empty($_POST["input_a"]) &&
-                                        !empty($_POST["input_b"]) &&
-                                        !empty($_POST["input_c"]) &&
-                                        !empty($_POST["input_d"]) &&
-                                        !empty($_POST["input_helyes"])
-                                    ) {
-                                        $mennyiHasonlit = 0;
-                                        $ugyanolyan = 0;
-                                        $kerdes = array($_POST["input_a"], $_POST["input_b"], $_POST["input_c"], $_POST["input_d"]);
-                                        for ($i = 0; $i < count($kerdes); $i++) {
-                                            if ($kerdes[$i] == $_POST["input_helyes"]) {
-                                                $mennyiHasonlit++;
-                                            }
-                                            for ($j = 0; $j < $i; $j++) {
-                                                if ($kerdes[$i] == $kerdes[$j]) {
-                                                    $ugyanolyan++;
-                                                }
+                            if (isset($_POST["action"]) && $_POST["action"] == "cmd_insert") {
+                                if (
+                                    !empty($_POST["input_kerdes"]) &&
+                                    !empty($_POST["input_a"]) &&
+                                    !empty($_POST["input_b"]) &&
+                                    !empty($_POST["input_c"]) &&
+                                    !empty($_POST["input_d"]) &&
+                                    !empty($_POST["input_helyes"])
+                                ) {
+                                    $mennyiHasonlit = 0;
+                                    $ugyanolyan = 0;
+                                    $kerdes = array($_POST["input_a"], $_POST["input_b"], $_POST["input_c"], $_POST["input_d"]);
+                                    for ($i = 0; $i < count($kerdes); $i++) {
+                                        if ($kerdes[$i] == $_POST["input_helyes"]) {
+                                            $mennyiHasonlit++;
+                                        }
+                                        for ($j = 0; $j < $i; $j++) {
+                                            if ($kerdes[$i] == $kerdes[$j]) {
+                                                $ugyanolyan++;
                                             }
                                         }
-                                        if ($mennyiHasonlit == 1 && $ugyanolyan == 0) {
-                                            $sql = "INSERT kerdesek (kerdes, valasz_A, valasz_B, valasz_C, valasz_D, helyes) 
+                                    }
+                                    if ($mennyiHasonlit == 1 && $ugyanolyan == 0) {
+                                        $sql = "INSERT kerdesek (kerdes, valasz_A, valasz_B, valasz_C, valasz_D, helyes) 
                                                 VALUES ('" . $_POST["input_kerdes"] . "',
                                                         '" . $_POST["input_a"] . "',
                                                         '" . $_POST["input_b"] . "',
                                                         '" . $_POST["input_c"] . "',
                                                         '" . $_POST["input_d"] . "',
                                                         '" . $_POST["input_helyes"] . "')";
-                                            if (mysqli_query($conn, $sql)) {
-                                                echo "<strong>Sikeres adatfelvétel!</strong>";
-                                            } else {
-                                                echo "<strong>Sikertelen adatfelvétel!</strong>";
-                                            }
-                                        } else if ($mennyiHasonlit == 0) {
-                                            echo "<strong>A helyes válaszra egy válaszlehetőség sem hasonlít!</strong>";
-                                        } else if ($mennyiHasonlit > 1) {
-                                            echo "<strong>A válaszra csak egy válaszlehetőség hasonlíthat!</strong>";
+                                        if (mysqli_query($conn, $sql)) {
+                                            echo "<strong>Sikeres adatfelvétel!</strong>";                                            
                                         } else {
-                                            echo "<strong>Két ugyanolyan válasz nem lehet!</strong>";
+                                            echo "<strong>Sikertelen adatfelvétel!</strong>";
                                         }
+                                    } else if ($mennyiHasonlit == 0) {
+                                        echo "<strong>A helyes válaszra egy válaszlehetőség sem hasonlít!</strong>";
+                                    } else if ($mennyiHasonlit > 1) {
+                                        echo "<strong>A válaszra csak egy válaszlehetőség hasonlíthat!</strong>";
                                     } else {
-                        ?>
-                                        <script>
-                                            alert("Valami nincs kitöltve!")
-                                        </script>
-                                <?php
+                                        echo "<strong>Két ugyanolyan válasz nem lehet!</strong>";
                                     }
+                                } else {
+                        ?>
+                                    <script>
+                                        alert("Valami nincs kitöltve!")
+                                    </script>
+                            <?php
                                 }
-                            } elseif (isset($_POST["action"]) && $_POST["action"] == "cmd_insert") { ?>
-                                <script>
-                                    alert("Önnek nincs joga hozzáadni");
-                                </script><?php
-                                        }
-                                    } ?>
+                            }
+                        } elseif (isset($_POST["action"]) && $_POST["action"] == "cmd_insert") { ?>
+                            <script>
+                                alert("Önnek nincs joga hozzáadni");
+                            </script><?php
+                                    }
+                                        ?>
                     </div>
                 </div>
             </div>
