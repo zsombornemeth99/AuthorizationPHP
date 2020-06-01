@@ -36,7 +36,7 @@ if ($_SESSION["login_state"] == "not_signed_in"){
 <header id="teteje">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-            <a class="navbar-brand" href="test.php">Quiz</a> 
+            <a class="navbar-brand" href="kerdesek.php">Quiz</a> 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

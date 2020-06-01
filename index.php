@@ -4,7 +4,7 @@ if(!isset($_SESSION["login_state"])){
 	$_SESSION["login_state"] = "not_signed_in";
 }
 if($_SESSION["login_state"] == "signed_in"){
-	header("location: test.php");
+	header("location: kerdesek.php");
 	die();
 }
 ?>
@@ -60,7 +60,7 @@ if($_SESSION["login_state"] == "signed_in"){
 										$_SESSION["login_state"] = "signed_in";
 										$_SESSION["login_user_permission"] = $row["permission"];
 								
-                    					header("location: test.php");
+                    					header("location: kerdesek.php");
                     					die();
 									} else {
 										$_SESSION["login_state"] == "not_signed_in";?>
