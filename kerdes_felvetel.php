@@ -11,7 +11,6 @@ if ($_SESSION["login_state"] == "not_signed_in") {
 <head>
     <title>Kérdés felvétele</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -32,84 +31,106 @@ if ($_SESSION["login_state"] == "not_signed_in") {
     </style>
 </head>
 <header id="teteje">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="kerdesek.php">Quiz</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" href="kerdesek.php">Kérdések</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
-                        </li>
-                        <?php
-                        if (isset($_SESSION["login_user_permission"])) {
-                            if ($_SESSION["login_user_permission"] == "admin" || $_SESSION["login_user_permission"] == "moderator") { ?>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="users.php">Userek</a>
-                                </li><?php
-                                    }
-                                } ?>
-                    </ul>
-                </div>
-                <form method="POST">
-                    <input type="hidden" name="action" value="logout">
-                    <input type="submit" value="Kijelentkezés" class="btn btn-primary float-right ml-3">
-                </form>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="kerdesek.php">Quiz</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item active">
+                        <a class="nav-link text-dark" href="kerdesek.php">Kérdések</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
+                    </li>
+                    <?php
+                    if (isset($_SESSION["login_user_permission"])) {
+                        if ($_SESSION["login_user_permission"] == "admin" || $_SESSION["login_user_permission"] == "moderator") { ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="users.php">Userek</a>
+                            </li><?php
+                                }
+                            } ?>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <?php if(isset($_POST["action"]) && $_POST["action"] == "logout"){
-			$_SESSION["login_state"] = "not_signed_in";
-			header("location: https://localhost/otthon/index.php");
-	} 
-	$conn = mysqli_connect("localhost","root","","quiz");
-	if (!$conn){
-		die ("Kapcsolódási hiba: ".mysqli_connect_error());
-	}
-    mysqli_query($conn, "SET CHARACTER SET 'utf8'"); ?>
+            <form method="POST">
+                <input type="hidden" name="action" value="logout">
+                <input type="submit" value="Kijelentkezés" class="btn btn-primary float-right ml-3">
+            </form>
+        </div>
+    </nav>
+</header>
+<?php if (isset($_POST["action"]) && $_POST["action"] == "logout") {
+    $_SESSION["login_state"] = "not_signed_in";
+    header("location: https://localhost/evvegi_bead/index.php");
+}
+$conn = mysqli_connect("localhost", "root", "", "quiz");
+if (!$conn) {
+    die("Kapcsolódási hiba: " . mysqli_connect_error());
+}
+mysqli_query($conn, "SET CHARACTER SET 'utf8'"); ?>
+
 <body>
     <div class="container-fluid">
         <div class="row p-2">
-            <div class="col-sm-5">
+            <div class="offset-sm-2"></div>
+            <div class="col-sm-7">
                 <div class="card bg-success mb-3">
                     <div class="card-header">
                         <h2>Kérdés hozzáadása</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST">
-                            <div class="form-group">
-                                <label for="comment"><strong>Kérdés:</strong></label>
-                                <textarea class="form-control" rows="2" id="comment" placeholder="Írja be a kérdést" name="input_kerdes"></textarea>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="comment"><strong>Kérdés:</strong></label>
+                                    <textarea class="form-control" rows="3" id="comment" placeholder="Írja be a kérdést" name="input_kerdes"></textarea>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="text"><strong>'A' válasz:</strong></label>
-                                <input id="input1" type="text" class="form-control" id="text" placeholder="Írja be az 'A' választ" oninput="addToSelectOption()" name="input_a">
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="text"><strong>'A' válasz:</strong></label>
+                                </div>
+                                <div class="col-6">
+                                    <label for="text"><strong>'B' válasz:</strong></label>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="text"><strong>'B' válasz:</strong></label>
-                                <input id="input2" type="text" class="form-control" id="text" placeholder="Írja be az 'B' választ" oninput="addToSelectOption()" name="input_b">
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <input id="input1" type="text" class="form-control" id="text" placeholder="Írja be az 'A' választ" oninput="addToSelectOption()" name="input_a"><br>
+                                </div>
+                                <div class="col-6">
+                                    <input id="input2" type="text" class="form-control" id="text" placeholder="Írja be az 'B' választ" oninput="addToSelectOption()" name="input_b">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="text"><strong>'C' válasz:</strong></label>
-                                <input id="input3" type="text" class="form-control" id="text" placeholder="Írja be az 'C' választ" oninput="addToSelectOption()" name="input_c">
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="text"><strong>'C' válasz:</strong></label>
+                                </div>
+                                <div class="col-6">
+                                    <label for="text"><strong>'D' válasz:</strong></label>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="text"><strong>'D' válasz:</strong></label>
-                                <input id="input4" type="text" class="form-control" id="text" placeholder="Írja be az 'D' választ" oninput="addToSelectOption()" name="input_d">
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <input id="input3" type="text" class="form-control" id="text" placeholder="Írja be az 'C' választ" oninput="addToSelectOption()" name="input_c">
+                                </div>
+                                <div class="col-6">
+                                    <input id="input4" type="text" class="form-control" id="text" placeholder="Írja be az 'D' választ" oninput="addToSelectOption()" name="input_d">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="text"><strong>Helyes válasz:</strong></label>
-                                <select id="select" style="width:100%;" class="form-control" name="input_helyes">
-                                    <option disabled selected>Válassza ki a helyes választ!</option>
-                                </select>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="text"><strong>Helyes válasz:</strong></label>
+                                    <select id="select" style="width:100%;" class="form-control" name="input_helyes">
+                                        <option disabled selected>Válassza ki a helyes választ!</option>
+                                    </select>
+                                </div>
                             </div>
                             <input type="hidden" name="action" value="cmd_insert">
-                            <button type="submit" class="btn btn-primary p-4">Felvétel</button><br /><br />
+                            <button type="submit" class="btn btn-primary btn-block">Felvétel</button><br /><br />
                         </form>
                         <script>
                             function addToSelectOption() {

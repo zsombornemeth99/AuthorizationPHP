@@ -41,13 +41,13 @@ if ($_SESSION["login_state"] == "not_signed_in"){
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item active">
-                            <a class="nav-link text-dark" href="https://localhost/otthon/kerdesek.php">Kérdések</a>
+                            <a class="nav-link text-dark" href="https://localhost/evvegi_bead/kerdesek.php">Kérdések</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://localhost/otthon/users.php">Userek</a>
+                            <a class="nav-link text-dark" href="https://localhost/evvegi_bead/users.php">Userek</a>
                         </li>
                     </ul>
                 </div>
@@ -60,7 +60,7 @@ if ($_SESSION["login_state"] == "not_signed_in"){
     </header>
     <?php if(isset($_POST["action"]) && $_POST["action"] == "logout"){
 			$_SESSION["login_state"] = "not_signed_in";
-			header("location: https://localhost/otthon/index.php");
+			header("location: https://localhost/evvegi_bead/index.php");
 	} 
 	$conn = mysqli_connect("localhost","root","","quiz");
 	if (!$conn){
@@ -89,7 +89,7 @@ if ($_SESSION["login_state"] == "not_signed_in"){
             if(mysqli_query($conn,$sql)){
                 //echo "Sikeres módosítás!<br>";
                 ?><script> alert("Sikeres módosítás!") </script><?php
-                header("location: https://localhost/otthon/kerdesek.php");
+                header("location: https://localhost/evvegi_bead/kerdesek.php");
                 die();
             }
             else{
@@ -164,7 +164,7 @@ if ($_SESSION["login_state"] == "not_signed_in"){
                             <input type="submit" value="Módosít" class="btn btn-primary form-control">
                         </div>
                         <div class="col-3">
-                            <a href="https://localhost/otthon/kerdesek.php" class="btn btn-success form-control">Vissza a kérdésekhez</a>
+                            <a href="https://localhost/evvegi_bead/kerdesek.php" class="btn btn-success form-control">Vissza a kérdésekhez</a>
                         </div>
                     </div>
                 </form>

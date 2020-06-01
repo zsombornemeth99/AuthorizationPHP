@@ -46,13 +46,13 @@ if ($_SESSION["login_user_permission"]!="admin" && $_SESSION["login_user_permiss
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item active">
-                            <a class="nav-link text-dark" href="https://localhost/otthon/kerdesek.php">Kérdések</a>
+                            <a class="nav-link text-dark" href="https://localhost/evvegi_bead/kerdesek.php">Kérdések</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link text-dark" href="kerdes_felvetel.php">Kérdés hozzáadása</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://localhost/otthon/users.php">Userek</a>
+                            <a class="nav-link text-dark" href="https://localhost/evvegi_bead/users.php">Userek</a>
                         </li>
                     </ul>
                 </div>
@@ -152,7 +152,7 @@ if ($_SESSION["login_user_permission"]!="admin" && $_SESSION["login_user_permiss
                             <input type="submit" value="Hozzáad" class="btn btn-primary form-control">
                         </div>
                         <div class="col-3">
-                            <a href="https://localhost/otthon/users.php" class="btn btn-success form-control">Vissza a userekhez</a>
+                            <a href="https://localhost/evvegi_bead/users.php" class="btn btn-success form-control">Vissza a userekhez</a>
                         </div>
                     </div>
                 </form>
