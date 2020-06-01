@@ -76,7 +76,7 @@
                 $sql = "UPDATE user SET 
                     activity = 'nem active'
                     WHERE id = ".$_POST['input_id'];
-                    echo $sql;
+                    //echo $sql;
                     if(mysqli_query($conn,$sql)){ ?>
                         <br><div class='mt-4 alert alert-success alert-dismissible fade show'>
                             <b>Sikeres inaktiválás<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -100,7 +100,7 @@
                 $sql = "UPDATE user SET 
                     activity = 'active'
                     WHERE id = ".$_POST['input_id'];
-                    echo $sql;
+                    //echo $sql;
                     if(mysqli_query($conn,$sql)){ ?>
                         <br><div class='mt-4 alert alert-success alert-dismissible fade show'>
                             <b>Sikeres aktiválás<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -123,7 +123,7 @@
             if(isset($_POST["action"]) && $_POST["action"]=="cmd_delete"){
                 $sql = "DELETE FROM user 
                     WHERE id = ".$_POST['input_id'];
-                    echo $sql;
+                    //echo $sql;
                     if(mysqli_query($conn,$sql)){ ?>
                         <br><div class='mt-4 alert alert-success alert-dismissible fade show'>
                             <b>Sikeres törlés<b><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -149,7 +149,7 @@
                     <div class="card-header"><h2>Userek</h2></div>
                         <div class="card-body text-center">
                             <table class="table table-dark table-hover table-striped">
-                            <tr><th>Id</th><th>Username</th><th>Permission</th><th>Activity</th><th>Password</th><th>Törlés</th></tr>
+                            <tr><th>Id</th><th>Username</th><th>Permission</th><th>Activity</th><th>Password</th><th>Módosítás</th></tr>
                             <?php
                             //LISTÁZÁS
 

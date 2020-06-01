@@ -85,13 +85,15 @@ if ($_SESSION["login_user_permission"]!="admin" && $_SESSION["login_user_permiss
             if(mysqli_num_rows($result) == 0){
                 $sql = "INSERT INTO user (username, password, permission, activity) VALUES  
                     ('".$_POST["input_username"]."',
+                    '".$_POST["input_password"]."',
                     '".$_POST["input_permission"]."',
-                    '".$_POST["input_activity"]."',
-                    '".$_POST["input_password"]."')"
+                    '".$_POST["input_activity"]."')"
             ;
-                echo $sql;
+                //echo $sql;
                 if(mysqli_query($conn, $sql)){ ?>
-                    <br><div class='mt-4 alert alert-success' role='alert'>Sikeres hozzáadás</div><?php
+                    <div class='mt-4 alert alert-success' role='alert'>Sikeres hozzáadás</div><?php
+                    header("location:users.php");
+                    die();
                 }
                 else{ ?>
                     <br><div id='result' class='mt-4 alert alert-danger alert-dismissible fade show'><b>Sikertelen hozzáadás!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div> 
